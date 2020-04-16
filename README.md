@@ -30,3 +30,13 @@ On the other hand, if you want to check if this work with some other piece of so
 `git clone https://github.com/lacaulac/webex-anti-flash.git`
 
 Then open `WebExAntiFlash.sln` with Visual Studio, select *Release* and *x86* and then hit *Build -> Build Solution*. You should find both files in a Release folder at the root of the cloned repo.
+
+## Technical details
+
+### WebexInjector.exe
+
+This program injects the `WebexAntiFlash.dll` module into a target process, by default the first `atmgr.exe` instance that could be found.
+
+### WebexAntiFlash.dll
+
+This module places a trampoliney hook on the `FlashWindowEx` function, from `user32.dll`. The hook redirects function calls to a function that just returns `FALSE`, which prevents Webex from making its taskbar icon flash.
