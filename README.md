@@ -1,6 +1,6 @@
 # WebEx AntiFlash
 
-**Disclaimer: I'm not affiliated with Cisco and/or WebEx in any way, nor was any analysis of the software needed to make this program.**
+**Disclaimer: We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Cisco, or any of its subsidiaries or its affiliates. No program analysis was done in order to develop this.**
 
 The goal of this tiny project is to prevent Cisco WebEx from flashing in the taskbar whenever an event occurs. I have to use this piece of software to attend online classes and I've found the taskbar popping up when typing bash commands pretty annoying, so I botched this together. You can use AntiFlash on other programs too by providing a PID as a command-line argument, but it might not work as expected.
 
