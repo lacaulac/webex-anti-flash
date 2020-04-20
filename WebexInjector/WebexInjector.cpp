@@ -14,7 +14,8 @@ int main(int argc, char** argv)
 	unsigned long targetPID = 0;
 	if (argc == 2)
 	{
-		unsigned long targetPID = strtoul(argv[1], NULL, 10);
+		targetPID = strtoul(argv[1], NULL, 10);
+		std::cout << "targetPID is " << targetPID << std::endl;
 	}
 	else
 	{
