@@ -5,37 +5,41 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 #include <cstdio>
+#include <string>
 
 bool inject(char* path, unsigned long pid);
+bool getPIDByName(LPCWSTR procName, unsigned long* pid);
 
 
 int main(int argc, char** argv)
 {
 	unsigned long targetPID = 0;
-	if (argc == 2)
+	wchar_t convText[255]; //If we need to convert to LPCWSTR from argv[2]
+
+
+	if (argc == 3)
 	{
-		targetPID = strtoul(argv[1], NULL, 10);
-		std::cout << "targetPID is " << targetPID << std::endl;
+		if (strcmp(argv[1], "pid") == 0)
+		{
+			targetPID = strtoul(argv[1], NULL, 10);
+		}
+		else if (strcmp(argv[1], "name") == 0)
+		{
+			mbstowcs_s(NULL, convText, argv[2], 254);
+			targetPID = getPIDByName(convText, &targetPID);
+		}
+		else
+		{
+			std::cout << "Usage: " << argv[0] << " pid/name <PID/Name>" << std::endl;
+			return -3;
+		}
 	}
 	else
 	{
 		//We try to find atmgr.exe on our own
-		PROCESSENTRY32 pEntry;
-		pEntry.dwSize = sizeof(PROCESSENTRY32);
-		HANDLE procsSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
-		if (Process32First(procsSnapshot, &pEntry) == TRUE)
-		{
-			do
-			{
-				if (lstrcmpW(pEntry.szExeFile, L"atmgr.exe") == 0)
-				{
-					//std::cout << "Found at PID " << pEntry.th32ProcessID << std::endl;
-					targetPID = pEntry.th32ProcessID;
-					break;
-				}
-			} while (Process32Next(procsSnapshot, &pEntry) == TRUE);
-		}
+		getPIDByName(L"atmgr.exe", &targetPID);
 	}
+
 	if (targetPID == 0)
 	{
 		//std::cout << "Couldn't find the Webex process. Have you tried starting the program as an Administrator?" << std::endl;
@@ -95,4 +99,24 @@ bool inject(char* path, unsigned long pid)
 
 
 	return true;
+}
+
+bool getPIDByName(LPCWSTR procName, unsigned long* pid)
+{
+	PROCESSENTRY32 pEntry;
+	pEntry.dwSize = sizeof(PROCESSENTRY32);
+	HANDLE procsSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
+	if (Process32First(procsSnapshot, &pEntry) == TRUE)
+	{
+		do
+		{
+			if (lstrcmpW(pEntry.szExeFile, procName) == 0)
+			{
+				//std::cout << "Found at PID " << pEntry.th32ProcessID << std::endl;
+				*pid = pEntry.th32ProcessID;
+				break;
+			}
+		} while (Process32Next(procsSnapshot, &pEntry) == TRUE);
+	}
+	return false;
 }
