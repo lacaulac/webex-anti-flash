@@ -2,7 +2,7 @@
 
 **Disclaimer: We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Cisco, or any of its subsidiaries or its affiliates. No program analysis was done in order to develop this.**
 
-The goal of this tiny project is to prevent Cisco WebEx from flashing in the taskbar whenever an event occurs. I have to use this piece of software to attend online classes and I've found the taskbar popping up when typing bash commands pretty annoying, so I botched this together. You can use AntiFlash on other programs too by providing a PID as a command-line argument, but it might not work as expected.
+The goal of this tiny project is to prevent Cisco WebEx from flashing in the taskbar whenever an event occurs. I have to use this piece of software to attend online classes and I've found the taskbar popping up when typing bash commands pretty annoying, so I botched this together. You can use AntiFlash on other programs too as detailed in the *Usage* section, but it might not work as expected.
 
 ## Installation
 
@@ -15,9 +15,11 @@ You can then copy `WebexInjector.exe` to whatever location suits you best.
 
 The main way of using this program is to simply run `WebexInjector.exe` once you've joined a WebEx meeting.
 
-On the other hand, if you want to check if this work with some other piece of software, you can provide the PID of the target program. Note that the `WebexAntiFlash.dll` file should still be placed in the target program's folder. The command-line should look something like this:
+On the other hand, if you want to check if this work with some other piece of software, you can provide the PID or process name of the target program. Note that the `WebexAntiFlash.dll` file should still be placed in the target program's folder. The command-line should look something like this:
 
-`.\WebexInjector.exe <TargetPID>`
+`.\WebexInjector.exe pid <TargetPID>`
+
+`.\WebexInjector.exe name <Process Name>`
 
 ## Compiling
 
@@ -39,4 +41,4 @@ This program injects the `WebexAntiFlash.dll` module into a target process, by d
 
 ### WebexAntiFlash.dll
 
-This module places a trampoliney hook on the `FlashWindowEx` function, from `user32.dll`. The hook redirects function calls to a function that just returns `FALSE`, which prevents Webex from making its taskbar icon flash.
+This module places trampoliney hooks on the `FlashWindowEx` and `FlashWindow` functions, from `user32.dll`. The hook redirects function calls to a function that just returns `FALSE`, which prevents Webex and any other application from making its taskbar icon flash.
