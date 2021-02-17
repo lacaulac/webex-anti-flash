@@ -6,8 +6,8 @@ The goal of this tiny project is to prevent Cisco WebEx from flashing in the tas
 
 ## Installation
 
-There's a release related to the first commit containing two files: `WebexInjector.exe` and `WebexAntiFlash.dll`.
-In order for the program to work, you need to copy `WebexAntiFlash.dll` into the folder containing `atmgr.exe`, which is generally `C:\Users\USERNAME_HERE\AppData\Local\WebEx\WebEx\Meetings`.
+Binary releases used to be provided, but they were getting flagged by multiple AV vendors so I decided to stop distributing them in case my build environment was compromised when I built them. If you want to use WebexAntiFlash, you'll unfortunately have to compile it yourself; I used Visual Studio 2019.
+After building the program, you will need to copy `WebexAntiFlash.dll` into the folder containing `atmgr.exe`, which was `C:\Users\USERNAME_HERE\AppData\Local\WebEx\WebEx\Meetings` in my case.
 
 You can then copy `WebexInjector.exe` to whatever location suits you best.
 
