@@ -19,8 +19,6 @@ On the other hand, if you want to check if this work with some other piece of so
 
 `.\WebexInjector.exe pid <TargetPID>`
 
-**THIS IS NOT WORKING AT THE MOMENT**`.\WebexInjector.exe name <Process Name>`
-
 ## Compiling
 
 ### Requirements
