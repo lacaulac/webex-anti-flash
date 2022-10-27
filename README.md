@@ -1,3 +1,6 @@
+# Archived
+According to [this page](https://ciscocollabcustomer.ideas.aha.io/ideas/WXCUST-I-626), it seems that Cisco added a feature to change the flashing behaviour on the 14th of November 2021, as part of update 41.11 of Cisco WebEx. I'm also not using this program anymore and do not intend to maintain it any further. Therefore, there is no reason for this repo not to be archived.
+
 # WebEx AntiFlash
 
 **Disclaimer: We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Cisco, or any of its subsidiaries or its affiliates. No program analysis was done in order to develop this.**
